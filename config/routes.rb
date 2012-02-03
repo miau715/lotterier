@@ -26,10 +26,11 @@ Lotterier::Application.routes.draw do
   #   end
   
   resources :events do
+    resources :participants do
+    end
   end
   
-  resources :participants do
-  end
+
   
   # Sample resource route with sub-resources:
   #   resources :products do

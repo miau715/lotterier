@@ -1,40 +1,48 @@
 class ParticipantsController < ApplicationController
   
   def index
-    @participants = Participant.all
+    @event = Event.find(params[:event_id])
+    
+    redirect_to event_path(@event)
   end
   
   def show
-    @participant = Participant.find(params[:id])
+    @event = Event.find(params[:event_id])
+    @participant = @event.participants.find(params[:id])
   end
   
   def new
-    @participant = Participant.new
+    @event = Event.find(params[:event_id])
+    @participant = @event.participants.build
   end
   
   def create
-    @participant = Participant.new(params[:participant])
+    @event = Event.find(params[:event_id])
+    @participant = @event.participants.build(params[:participant])
     @participant.save
     
-    redirect_to participants_path
+    redirect_to event_participant_path(@event, @participant)
   end
   
   def edit
-    @participant = Participant.find(params[:id])
+    @event = Event.find(params[:event_id])
+    @participant = @event.participants.find(params[:id])
   end
   
   def update
-    @participant = Participant.find(params[:id])
+    @event = Event.find(params[:event_id])
+    @participant = @event.participants.find(params[:id])
     @participant.update_attributes(params[:participant])
     
-    redirect_to participants_path
+    redirect_to event_participant_path(@event, @participant)
   end
   
   def destroy
-    @participant = Participant.find(params[:id])
+    @event = Event.find(params[:event_id])
+    @participant = @event.participants.find(params[:id])
     @participant.destroy
     
-    redirect_to participants_path
+    redirect_to event_participants_path(@event, @participant)
   end
   
 end
