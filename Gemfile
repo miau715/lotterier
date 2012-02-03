@@ -22,6 +22,13 @@ end
 
 gem 'jquery-rails'
 
+group :development do
+  gem "wirble"
+  gem "hirb"
+  gem "awesome_print"
+  gem "map_by_method"
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
