@@ -28,7 +28,9 @@ Lotterier::Application.routes.draw do
   resources :events do
   end
   
-
+  resources :participants do
+  end
+  
   # Sample resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales

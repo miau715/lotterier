@@ -1,0 +1,13 @@
+<h1>參加者名單</h1>
+
+<%= link_to '加入新參加者', new_participant_path %>
+<ul>
+<% @participants.each do |list| %>
+  <li>
+    <%= list.name %>
+    <%= link_to '顯示', participant_path(list) %>
+    <%= link_to '編輯', edit_participant_path(list) %>
+    <%= button_to '刪除', participant_path(list), method: :delete %>
+  </li>
+<% end %>
+</ul>
