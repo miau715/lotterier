@@ -3,8 +3,13 @@ class ApplicationController < ActionController::Base
   
   layout :layout_by_resource
 
-  protected
+  def require_is_admin
+    unless (current_user && current_user.is_admin?)
+      redirect_to root_path
+    end
+  end
 
+  protected
   def layout_by_resource
     if devise_controller?
       "devise_layout"

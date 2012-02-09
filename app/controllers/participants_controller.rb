@@ -42,7 +42,7 @@ class ParticipantsController < ApplicationController
     @participant = @event.participants.find(params[:id])
     @participant.destroy
     
-    redirect_to event_participants_path(@event, @participant)
+    redirect_to event_participants_url(@event, @participant)
   end
   
 end

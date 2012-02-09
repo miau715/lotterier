@@ -1,0 +1,7 @@
+<h2><%= @prize.name %></h2>
+<p>
+	共抽 <%= @prize.quantity %> 份
+</p>
+
+<%= link_to '編輯', edit_event_prize_path %>
+<%= link_to '回參加者名單', event_prizes_path %>

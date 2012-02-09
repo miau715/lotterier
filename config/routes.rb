@@ -30,8 +30,18 @@ Lotterier::Application.routes.draw do
   resources :events do
     resources :participants do
     end
+    resources :prizes do
+    end
   end
   
+  namespace :admin do
+    resources :events do
+      resources :participants do
+      end
+      resources :prizes do
+      end
+    end
+  end
 
   
   # Sample resource route with sub-resources:

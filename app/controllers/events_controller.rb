@@ -8,6 +8,7 @@ class EventsController < ApplicationController
   def show
     @event = current_user.events.find(params[:id])
     @participants = @event.participants
+    @prizes = @event.prizes
   end
   
   def new 
@@ -35,7 +36,7 @@ class EventsController < ApplicationController
   end
   
   def destroy
-    @event = current_user.posts.find(params[:id])
+    @event = current_user.events.find(params[:id])
     @event.destroy
     
     redirect_to events_path

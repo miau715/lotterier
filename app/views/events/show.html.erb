@@ -5,6 +5,26 @@
 <%= link_to '回活動列表', events_path %>
 
 <hr />
+<h2>活動獎項</h2>
+<%= link_to '增加獎項', new_event_prize_path(@event) %>
+<table>
+	<tr>
+		<th>獎項</th>
+		<th>數量</th>
+		<th></th>
+		<th></th>
+	</tr>
+<% @prizes.each do |prize| %>
+  <tr>
+	  <td><%= prize.name %></td>
+	  <td><%= prize.quantity %></td>
+	  <td><%= link_to '編輯', edit_event_prize_path(@event, prize) %></td>
+	  <td><%= button_to '刪除', event_prize_path(@event, prize), method: :delete %></td>
+	</tr>
+<% end %>
+</table>
+
+<hr />
 
 <%= link_to '增加名單', new_event_participant_path(@event) %>
 <h2>參加名單</h2>

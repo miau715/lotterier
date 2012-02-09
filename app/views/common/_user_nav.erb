@@ -2,6 +2,13 @@
   <% if user_signed_in? %>
     Hi! <%= current_user.email %>
     <%= link_to("登出", destroy_user_session_path, :method => :delete )%>
+    <% if current_user && current_user.is_admin? %>
+      <% if params[:controller].include?('admin') %>
+        <%= link_to("回一般首頁", events_path) %>
+      <% elsif %>
+        <%= link_to("管理介面", admin_events_path) %>
+      <% end %>
+    <% end %>
   <% else %>
     <%= link_to "登入", new_user_session_path %>
     <%= link_to "註冊", new_user_registration_path %>
