@@ -1,0 +1,7 @@
+<h1>編輯活動</h1>
+<%= form_for [:admin, @event] do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <%= f.submit "修改" %>
+<% end %>
+
+<%= link_to '不想改了', admin_events_path %>

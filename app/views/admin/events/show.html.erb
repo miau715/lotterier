@@ -1,0 +1,27 @@
+<h2><%= @event.name %></h2>
+
+<p><%= @event.description %></p>
+<%= link_to '編輯', edit_admin_event_path %>
+<%= link_to '回活動列表', admin_events_path %>
+
+<hr />
+<% if current_user.id == @event.user_id %>
+  <%= link_to '增加名單', new_event_participant_path(@event) %>
+<h2>參加名單</h2>
+<table>
+	<tr>
+		<th>參加者</th>
+		<th></th>
+		<th></th>
+	</tr>
+<% @participants.each do |participant| %>
+  <tr>
+	  <td><%= participant.name %></td>
+	  <td><%= link_to '編輯', edit_event_participant_path(@event, participant) %></td>
+	  <td><%= button_to '刪除', event_participant_path(@event, participant), method: :delete %></td>
+	</tr>
+<% end %>
+<% end %>
+</table>
+
+
