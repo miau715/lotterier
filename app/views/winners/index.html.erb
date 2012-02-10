@@ -1,5 +1,4 @@
-<h1>理論上這裡是被抽中的名單</h1>
-<p><%= @test %></p>
+<h1>恭喜你中了 <%= params[:name] %> </h1>
 <ul>
 <% @winners.each do |winner| %>
   <li>
@@ -7,3 +6,5 @@
   </li>
 <% end %>
 </ul>
+
+<%= link_to '回活動頁面', event_path(@event) %>

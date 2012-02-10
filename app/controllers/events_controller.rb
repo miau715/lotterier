@@ -44,7 +44,9 @@ class EventsController < ApplicationController
   
   def lottery
     @event = Event.find(params[:event_id])
-    redirect_to event_winners_path(@event)
+    @name = params[:name]
+    @quantity = params[:quantity]
+    redirect_to event_winners_path(@event, { :name => @name, :quantity => @quantity })
   end
   
 end
