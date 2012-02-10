@@ -1,0 +1,9 @@
+<h1>理論上這裡是被抽中的名單</h1>
+<p><%= @test %></p>
+<ul>
+<% @winners.each do |winner| %>
+  <li>
+    <%= winner.name %>
+  </li>
+<% end %>
+</ul>

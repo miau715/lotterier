@@ -42,4 +42,9 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
   
+  def lottery
+    @event = Event.find(params[:event_id])
+    redirect_to event_winners_path(@event)
+  end
+  
 end
