@@ -1,8 +1,8 @@
-<h1>恭喜你中了 <%= params[:name] %> </h1>
+<h1>得獎名單</h1>
 <ul>
 <% @winners.each do |winner| %>
   <li>
-    <%= winner.name %>
+    <%= winner.participant.name %>
   </li>
 <% end %>
 </ul>
