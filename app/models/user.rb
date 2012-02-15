@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   
   has_many :events
   
+  has_many :prizes
+  
   def is_admin?
     is_admin
   end

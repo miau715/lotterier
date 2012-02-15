@@ -54,12 +54,15 @@ class EventsController < ApplicationController
     
     @prizes.each_with_index do |prize, i|
       prize.quantity.times do |j|
-        @winner = @participants[i+j].update_attributes(:prize_id => prize.id)
+        prize.winners << @participants[i+j]
       end
     end
     
-    @winners = @event.participants
-    # redirect_to event_winners_path(@event)
+    #event_prize_ids = @event.prize_ids
+    #participant_ids = PrizeWinner.where(:prize_id => event_prize_ids).collect(&:participant_id)
+    #@winners = Participant.find(participant_ids)
 
+    @winners = @event.winners
+    
   end
 end
