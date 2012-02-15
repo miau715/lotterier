@@ -1,0 +1,10 @@
+<h1>理論上有抽完的名單</h1>
+
+<ul>
+<% @winners.each do |winner| %>
+  <li>
+    <%= winner.name %>
+    <%= winner.prize_id %>
+  </li>
+<% end %>
+</ul>

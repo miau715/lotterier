@@ -1,4 +1,6 @@
 class PrizesController < ApplicationController
+  
+
   def index
     @event = Event.find(params[:event_id])
     redirect_to event_path(@event)

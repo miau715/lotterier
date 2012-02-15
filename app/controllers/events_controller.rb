@@ -49,9 +49,17 @@ class EventsController < ApplicationController
     # redirect_to event_winners_path(@event, { :name => @name, :quantity => @quantity })
     
     @event = Event.find(params[:event_id])
+    @prizes = @event.prizes
+    @participants = @event.participants.order('random()')
     
-    redirect_to event_winners_path(@event)
+    @prizes.each_with_index do |prize, i|
+      prize.quantity.times do |j|
+        @winner = @participants[i+j].update_attributes(:prize_id => prize.id)
+      end
+    end
     
-    
+    @winners = @event.participants
+    # redirect_to event_winners_path(@event)
+
   end
 end
