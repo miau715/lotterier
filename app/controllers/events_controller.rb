@@ -9,16 +9,19 @@ class EventsController < ApplicationController
     @event = current_user.events.find(params[:id])
     @participants = @event.participants
     @prizes = @event.prizes
+    @prizes_size = 0
+    @prizes.each do |prize|
+      @prizes_size += prize.quantity
+    end
+    
   end
   
   def new 
-    @event = Event.new
+    @event = current_user.events.build
   end
   
   def create
-    @event = Event.new(params[:event])
-    @event.user_id = current_user.id
-    
+    @event = current_user.events.build(params[:event])
     @event.save
     
     redirect_to events_path
@@ -43,24 +46,29 @@ class EventsController < ApplicationController
   end
   
   def lottery
-    # @event = Event.find(params[:event_id])
-    # @name = params[:name]
-    # @quantity = params[:quantity]
-    # redirect_to event_winners_path(@event, { :name => @name, :quantity => @quantity })
-    
     @event = Event.find(params[:event_id])
     @prizes = @event.prizes
-    @participants = @event.participants.order('random()')
     
-    @prizes.each_with_index do |prize, i|
-      prize.quantity.times do |j|
-        @winner = @participants[i+j].update_attributes(:prize_id => prize.id)
+    if (@event.is_lotteried == false)
+      @event.update_attributes(:is_lotteried => true)
+      @participants = @event.participants.order('random()')
+    
+      @prizes.each_with_index do |prize, i|
+        prize.quantity.times do |j|
+          @winner = @participants[i+j].update_attributes(:prize_id => prize.id)
+        end
       end
+    
+      @winners = @event.participants.find(:all, :joins => :prize, :conditions => "prize_id IS NOT NULL" ) 
     end
-    
-    @winners = @event.participants.find(:all, :joins => :prize, :conditions => "prize_id IS NOT NULL" ) 
-    
-    # redirect_to event_winners_path(@event)
-
   end
+  
+  def reset_winner
+    @event = Event.find(params[:event_id])
+    @event.update_attributes(:is_lotteried => false)
+    @event.participants.update_all(:prize_id => nil)
+    
+    redirect_to event_path(@event)
+  end
+  
 end

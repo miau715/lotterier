@@ -39,7 +39,7 @@ class PrizesController < ApplicationController
   
   def destroy
     @event = Event.find(params[:event_id])
-    @prize = @event.prize.find(params[:id])
+    @prize = @event.prizes.find(params[:id])
     @prize.destroy
     
     redirect_to event_prizes_url(@event, @prize)

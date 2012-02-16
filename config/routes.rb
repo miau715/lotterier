@@ -29,6 +29,7 @@ Lotterier::Application.routes.draw do
   
   resources :events do
     get :lottery
+    get :reset_winner
     resources :participants do
     end
     resources :prizes do
