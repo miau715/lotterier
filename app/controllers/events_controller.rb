@@ -58,7 +58,8 @@ class EventsController < ApplicationController
       end
     end
     
-    @winners = @event.participants
+    @winners = @event.participants.find(:all, :joins => :prize, :conditions => "prize_id IS NOT NULL" ) 
+    
     # redirect_to event_winners_path(@event)
 
   end

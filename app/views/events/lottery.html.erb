@@ -3,8 +3,8 @@
 <ul>
 <% @winners.each do |winner| %>
   <li>
+	  <%= winner.prize.name %>
     <%= winner.name %>
-    <%= winner.prize_id %>
   </li>
 <% end %>
 </ul>

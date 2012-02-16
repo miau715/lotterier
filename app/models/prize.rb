@@ -1,4 +1,4 @@
 class Prize < ActiveRecord::Base
   belongs_to :event
-  belongs_to :winner
+  has_many :participants
 end
