@@ -9,11 +9,7 @@ class EventsController < ApplicationController
     @event = current_user.events.find(params[:id])
     @participants = @event.participants
     @prizes = @event.prizes
-    @prizes_size = 0
-    @prizes.each do |prize|
-      @prizes_size += prize.quantity
-    end
-    
+    @prizes_size = @prizes.sum(:quantity)
   end
   
   def new 

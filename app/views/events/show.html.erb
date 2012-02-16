@@ -23,7 +23,7 @@
 
 <% elsif %>
 <% if @participants.size < @prizes_size %>
-<p>目前人數少於抽獎數目，無法抽獎。</p>
+<p>目前參加人數少於抽獎數目，無法抽獎。</p>
 <% elsif %>
 <%= link_to '看看抽獎結果', event_lottery_path(@event) %>
 <% end %>
