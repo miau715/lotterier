@@ -1,6 +1,6 @@
+# encoding: utf-8
 class PrizesController < ApplicationController
   
-
   def index
     @event = Event.find(params[:event_id])
     redirect_to event_path(@event)
@@ -19,6 +19,7 @@ class PrizesController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     @prize = @event.prizes.build(params[:prize])
+    @prize.order_index = @event.prizes.size - 1
     if @prize.save
       redirect_to event_path(@event), :notice => "已加入新獎項 #{@prize.name}"
     else

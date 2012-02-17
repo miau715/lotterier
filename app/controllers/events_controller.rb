@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   def show
     @event = current_user.events.find(params[:id])
     @participants = @event.participants
-    @prizes = @event.prizes
+    @prizes = @event.prizes.ordered
     @prizes_size = @prizes.sum(:quantity)
   end
   
@@ -55,10 +55,11 @@ class EventsController < ApplicationController
     if (@event.is_lotteried == false)
       @event.update_attributes(:is_lotteried => true)
       @participants = @event.participants.order('random()')
-    
+      loop_count=0
       @prizes.each_with_index do |prize, i|
         prize.quantity.times do |j|
-          @winner = @participants[i+j].update_attributes(:prize_id => prize.id)
+          @winner = @participants[loop_count].update_attributes(:prize_id => prize.id)
+          loop_count+=1
         end
       end
     
