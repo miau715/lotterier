@@ -40,7 +40,7 @@
 	  <td><%= prize.name %></td>
 	  <td><%= prize.quantity %></td>
 	  <td><%= link_to '編輯', edit_event_prize_path(@event, prize) %></td>
-	  <td><%= button_to '刪除', event_prize_path(@event, prize), method: :delete %></td>
+	  <td><%= button_to '刪除', event_prize_path(@event, prize), method: :delete, :confirm => "請確定是否刪除" %></td>
 
 	</tr>
 <% end %>
@@ -61,7 +61,7 @@
   <tr>
 	  <td><%= participant.name %></td>
 	  <td><%= link_to '編輯', edit_event_participant_path(@event, participant) %></td>
-	  <td><%= button_to '刪除', event_participant_path(@event, participant), method: :delete %></td>
+	  <td><%= button_to '刪除', event_participant_path(@event, participant), method: :delete, :confirm => "請確定是否刪除" %></td>
 	</tr>
 <% end %>
 </table>

@@ -7,7 +7,7 @@
     <%= event.name %>
     <%= link_to '顯示', event_path(event) %>
     <%= link_to '編輯', edit_event_path(event) %>
-    <%= button_to '刪除', event_path(event), method: :delete %>
+    <%= button_to '刪除', event_path(event), method: :delete, :confirm => "請確定是否刪除" %>
   </li>
 <% end %>
 </ul>

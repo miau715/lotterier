@@ -1,3 +1,4 @@
+# encoding: utf-8
 class EventsController < ApplicationController
   before_filter :authenticate_user!
   
@@ -18,9 +19,11 @@ class EventsController < ApplicationController
   
   def create
     @event = current_user.events.build(params[:event])
-    @event.save
-    
-    redirect_to events_path
+    if @event.save
+      redirect_to events_path, :notice => "已建立新活動 #{@event.name}"
+    else
+      redirect_to events_path, :error => "活動 #{@event.name} 建立失敗"
+    end
   end
   
   def edit
@@ -29,16 +32,20 @@ class EventsController < ApplicationController
   
   def update
     @event = current_user.events.find(params[:id])
-    @event.update_attributes(params[:event])
-    
-    redirect_to event_path(@event)
+    if @event.update_attributes(params[:event])
+      redirect_to event_path(@event), :notice => "成功更新活動 #{@event.name}"
+    else
+      redirect_to events_path, :error => "活動 #{@event.name} 更新失敗"
+    end
   end
   
   def destroy
     @event = current_user.events.find(params[:id])
-    @event.destroy
-    
-    redirect_to events_path
+    if @event.destroy
+      redirect_to events_path, :notice => "活動 #{@event.name} 已成功刪除"
+    else
+      redirect_to events_path, :error => "活動 #{@event.name} 刪除失敗"
+    end
   end
   
   def lottery
@@ -64,7 +71,7 @@ class EventsController < ApplicationController
     @event.update_attributes(:is_lotteried => false)
     @event.participants.update_all(:prize_id => nil)
     
-    redirect_to event_path(@event)
+    redirect_to event_path(@event), :notice => "得獎名單已重置"
   end
   
 end

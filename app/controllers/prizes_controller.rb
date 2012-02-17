@@ -19,9 +19,11 @@ class PrizesController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     @prize = @event.prizes.build(params[:prize])
-    @prize.save
-    
-    redirect_to event_prize_path(@event, @prize)
+    if @prize.save
+      redirect_to event_path(@event), :notice => "已加入新獎項 #{@prize.name}"
+    else
+      redirect_to event_path(@event), :error => "獎項寫入失敗"
+    end
   end
   
   def edit
@@ -32,17 +34,21 @@ class PrizesController < ApplicationController
   def update
     @event = Event.find(params[:event_id])
     @prize = @event.prizes.find(params[:id])
-    @prize.update_attributes(params[:prize])
-    
-    redirect_to event_prize_path(@event, @prize)
+    if @prize.update_attributes(params[:prize])
+      redirect_to event_path(@event), :notice => "已更新獎項 #{@prize.name}"
+    else
+      redirect_to event_path(@event), :error => "獎項更新失敗"
+    end
   end
   
   def destroy
     @event = Event.find(params[:event_id])
     @prize = @event.prizes.find(params[:id])
-    @prize.destroy
-    
-    redirect_to event_prizes_url(@event, @prize)
+    if @prize.destroy
+      redirect_to event_url(@event), :notice => "獎項 #{@prize.name} 已刪除"
+    else
+      redirect_to event_url(@event), :error => "獎項 #{@prize.name} 刪除失敗"
+    end
   end
   
   
