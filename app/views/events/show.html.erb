@@ -48,8 +48,29 @@
 
 <% end %>
 <hr />
+<%= form_for :dump, :url => csv_import_event_participants_path(@event), 
+            :html => { :multipart => true } do |f| %>
+  <table>
+    <tr>
+      <td>
+        <label for="dump_file">
+         Select a CSV File :
+        </label>
+      </td>
+      <td >
+        <%= f.file_field :csvfile %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan='2'>
+        <%= submit_tag 'Submit' %>
+      </td>
+    </tr>
+  </table>
+<% end %>
 
 <%= link_to '增加名單', new_event_participant_path(@event) %>
+<%#= link_to '匯入CSV', csv_import_event_participants_path(@event) %>
 <h2>參加名單</h2>
 <table>
 	<tr>
