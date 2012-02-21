@@ -58,6 +58,9 @@ class ParticipantsController < ApplicationController
     CSV.foreach(file) do |row|
       @participant = @event.participants.new(
         :name => row[0],
+        :phone_number => row[1],
+        :email => row[2],
+        :custom_id => row[3],
         :event_id => @event.id
       )
       @participant.save
