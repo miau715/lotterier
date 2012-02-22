@@ -73,7 +73,7 @@ class ParticipantsController < ApplicationController
   def reset_participants
     @event = Event.find(params[:event_id])
     @event.update_attributes(:is_imported => false)
-    @event.participants.destroy
+    @event.participants.destroy_all
     
     redirect_to event_path(@event), :notice => "參加者名單已重置"
   end
