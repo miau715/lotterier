@@ -34,6 +34,7 @@ Lotterier::Application.routes.draw do
     resources :participants do
       collection do
         post :csv_import
+        get :reset_participants
       end
     end
     resources :prizes do

@@ -8,53 +8,71 @@
 
 <h2>活動獎項</h2>
 <% if @event.is_lotteried == true %>
+  <%= link_to '重設抽獎', event_reset_winner_path(@event) %>
 
-<%= link_to '重設抽獎', event_reset_winner_path(@event) %>
+  <dl>
+    <% @prizes.each do |prize| %>
+      <dt><%= prize.name %></dt>
+      <% @participants.find(:all, :conditions => {:prize_id => prize.id}).each do |winner| %>
+      <dd><%= winner.name %></dd>
+    <% end %>
+  </dl>
+<% end %>
 
-<dl>
-<% @prizes.each do |prize| %>
-  <dt><%= prize.name %></dt>
-  <% @participants.find(:all, :conditions => {:prize_id => prize.id}).each do |winner| %>
-    <dd><%= winner.name %></dd>
+<% else %>
+  <% if @participants.size < @prizes_size %>
+    <p>目前參加人數少於抽獎數目，無法抽獎。</p>
+  <% elsif @participants.size == 0 %>
+    <p>無人可抽獎</p>
+  <% elsif @prizes_size == 0 %>
+    <p>尚未加入獎項，無法抽獎</p>
+  <% else %>
+    <%= link_to '抽獎', event_lottery_path(@event) %>
   <% end %>
-
-<% end %>
-</dl>
-
-<% elsif %>
-<% if @participants.size < @prizes_size %>
-<p>目前參加人數少於抽獎數目，無法抽獎。</p>
-<% elsif %>
-<%= link_to '看看抽獎結果', event_lottery_path(@event) %>
-<% end %>
-<%= link_to '增加獎項', new_event_prize_path(@event) %>
-<table>
-	<tr>
-		<th>獎項</th>
-		<th>數量</th>
-		<th></th>
-		<th></th>
-	</tr>
-<% @prizes.each do |prize| %>
-  <tr>
-	  <td><%= prize.name %></td>
-	  <td><%= prize.quantity %></td>
-	  <td><%= link_to '編輯', edit_event_prize_path(@event, prize) %></td>
-	  <td><%= button_to '刪除', event_prize_path(@event, prize), method: :delete, :confirm => "請確定是否刪除" %></td>
-
-	</tr>
-<% end %>
-</table>
-
+  <%= link_to '增加獎項', new_event_prize_path(@event) %>
+  <table>
+	  <tr>
+		  <th>獎項</th>
+		  <th>數量</th>
+		  <th></th>
+		  <th></th>
+	  </tr>
+  <% @prizes.each do |prize| %>
+    <tr>
+      <td><%= prize.name %></td>
+      <td><%= prize.quantity %></td>
+      <td><%= link_to '編輯', edit_event_prize_path(@event, prize) %></td>
+      <td><%= button_to '刪除', event_prize_path(@event, prize), method: :delete, :confirm => "請確定是否刪除" %></td>
+    </tr>
+  <% end %>
+  </table>
 <% end %>
 <hr />
+
+<% if @event.is_imported %>
+<%= link_to '重設參加名單', reset_participants_event_participants_path(@event) %>
+  <h2>參加名單</h2>
+  <table>
+  	<tr>
+  		<th>參加者</th>
+  		<th></th>
+  		<th></th>
+  	</tr>
+  <% @participants.each do |participant| %>
+    <tr>
+  	  <td><%= participant.name %></td>
+  	  <td><%= link_to '編輯', edit_event_participant_path(@event, participant) %></td>
+  	  <td><%= button_to '刪除', event_participant_path(@event, participant), method: :delete, :confirm => "請確定是否刪除" %></td>
+  	</tr>
+  <% end %>
+<% else %>
 <%= form_for :dump, :url => csv_import_event_participants_path(@event), 
             :html => { :multipart => true } do |f| %>
   <table>
     <tr>
       <td>
         <label for="dump_file">
-         Select a CSV File :
+         請選擇CSV檔案：
         </label>
       </td>
       <td >
@@ -68,23 +86,10 @@
     </tr>
   </table>
 <% end %>
-
-<%= link_to '增加名單', new_event_participant_path(@event) %>
-<%#= link_to '匯入CSV', csv_import_event_participants_path(@event) %>
-<h2>參加名單</h2>
-<table>
-	<tr>
-		<th>參加者</th>
-		<th></th>
-		<th></th>
-	</tr>
-<% @participants.each do |participant| %>
-  <tr>
-	  <td><%= participant.name %></td>
-	  <td><%= link_to '編輯', edit_event_participant_path(@event, participant) %></td>
-	  <td><%= button_to '刪除', event_participant_path(@event, participant), method: :delete, :confirm => "請確定是否刪除" %></td>
-	</tr>
 <% end %>
+
+<%#= link_to '增加名單', new_event_participant_path(@event) %>
+
 </table>
 
 
