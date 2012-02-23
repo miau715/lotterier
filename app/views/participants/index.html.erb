@@ -1,0 +1,20 @@
+<h2>參加名單</h2>
+<table>
+	<tr>
+		<th>參加者</th>
+		<th></th>
+		<th></th>
+		<th></th>
+	</tr>
+<% @participants.each do |participant| %>
+  <tr>
+	  <td><%= participant.name %></td>
+    <td><%= participant.phone_number %></td>
+    <td><%= participant.email %></td>
+    <td><%= participant.custom_id %></td>
+	</tr>
+<% end %>
+</table>
+<%= will_paginate(@participants)%> 
+<br />
+<%= link_to '回活動頁面', event_path(@event) %>

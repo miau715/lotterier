@@ -3,8 +3,7 @@ class ParticipantsController < ApplicationController
   
   def index
     @event = Event.find(params[:event_id])
-    
-    redirect_to event_path(@event)
+    @participants = @event.participants.paginate(:page => params[:page], :per_page => 50 )
   end
   
   def csv_import
