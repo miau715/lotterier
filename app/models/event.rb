@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
   has_many :participants, :dependent => :destroy
   has_many :prizes
   
-
+  validates :name, :presence => true
+  validates :description, :presence => true
   
 end

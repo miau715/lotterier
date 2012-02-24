@@ -20,6 +20,6 @@
 <% end %>
 </table>
 <%= will_paginate(@participants) %> 
-
+<%= params[:page_per] %>
 <br />
 <%= link_to '回活動頁面', event_path(@event) %>
