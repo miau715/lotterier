@@ -1,13 +1,17 @@
 <h2>參加名單</h2>
+
 <table>
 	<tr>
+		<th>序號</th>
 		<th>參加者</th>
 		<th></th>
 		<th></th>
 		<th></th>
 	</tr>
-<% @participants.each do |participant| %>
+<% @participants.each_with_index do |participant, index| %>
+<% params[:page].to_i == 0 ? params[:page] = 1 : params[:page] = params[:page].to_i  %>
   <tr>
+	  <td><%= 50*(params[:page].to_i-1)+index+1 %></td>
 	  <td><%= participant.name %></td>
     <td><%= participant.phone_number %></td>
     <td><%= participant.email %></td>
@@ -15,6 +19,7 @@
 	</tr>
 <% end %>
 </table>
-<%= will_paginate(@participants)%> 
+<%= will_paginate(@participants) %> 
+
 <br />
 <%= link_to '回活動頁面', event_path(@event) %>

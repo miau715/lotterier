@@ -48,18 +48,19 @@
   </table>
 <% end %>
 <hr />
+<% if @event.participants_count > 0 %>
 <p>共有 <%= @participants.size %> 人參加。 </p>
-<% if @event.is_imported %>
 <%= link_to '重設參加名單', reset_participants_event_participants_path(@event) %>
 <%= link_to '瀏覽參加者名單', event_participants_path(@event) %>
 <% else %>
+<h3>匯入參加者名單</h3>
 <%= form_for :dump, :url => csv_import_event_participants_path(@event), 
-            :html => { :multipart => true } do |f| %>
+             :html => { :multipart => true } do |f| %>
   <table>
     <tr>
       <td>
         <label for="dump_file">
-         請選擇CSV檔案：
+          請選擇CSV檔案：
         </label>
       </td>
       <td >

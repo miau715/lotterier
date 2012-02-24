@@ -16,11 +16,11 @@ ActiveRecord::Schema.define(:version => 20120221103528) do
   create_table "events", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "user_id"
-    t.boolean  "is_lotteried", :default => false
-    t.boolean  "is_imported",  :default => false
+    t.boolean  "is_lotteried",       :default => false
+    t.integer  "participants_count", :default => 0
   end
 
   create_table "participants", :force => true do |t|

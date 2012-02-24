@@ -26,13 +26,11 @@ class ParticipantsController < ApplicationController
       @participant.save
     end
     FileUtils.rm file
-    @event.update_attributes(:is_imported => true)
     redirect_to event_path(@event), :notice => "資料匯入成功"
   end
   
   def reset_participants
     @event = Event.find(params[:event_id])
-    @event.update_attributes(:is_imported => false)
     @event.participants.destroy_all
     
     redirect_to event_path(@event), :notice => "參加者名單已重置"
