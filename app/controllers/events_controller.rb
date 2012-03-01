@@ -74,5 +74,9 @@ class EventsController < ApplicationController
     
     redirect_to event_path(@event), :notice => "得獎名單已重置"
   end
+  
+  def marked_lottery_result
+    
+  end
 
 end

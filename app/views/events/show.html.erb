@@ -1,9 +1,12 @@
+<div class="hero-unit">
+<% if @event.excerpt_image %>
+<p> <%= image_tag(@event.excerpt_image.url(:large)) %></p> 
+<% end %>
 <h2><%= @event.name %></h2>
-
 <p><%= @event.description %></p>
 <%= link_to '編輯', edit_event_path %>
 <%= link_to '回活動列表', events_path %>
-
+</div>
 <hr />
 
 <h2>活動獎項</h2>
@@ -13,11 +16,42 @@
   <dl>
     <% @prizes.each do |prize| %>
       <dt><%= prize.name %></dt>
+			<dd>
+				<table class="table table-striped">
+					<tr>
+						<% if @participants.first.name != nil %>
+						  <th>姓名</th>
+						<% end %>
+						<% if @participants.first.custom_id != nil %>
+						  <th>帳號</th>
+						<% end %>
+						<% if @participants.first.phone_number != nil %>
+						  <th>電話</th>
+						<% end %>
+						<% if @participants.first.email != nil %>
+						  <th>email</th>
+						<% end %>
+					</tr>
       <% @participants.find(:all, :conditions => {:prize_id => prize.id}).each do |winner| %>
-      <dd><%= winner.name %></dd>
-    <% end %>
+          <tr>
+						<% if @participants.first.name != nil %>
+						<td><%= winner.name %></td>
+						<% end %>
+						<% if @participants.first.custom_id != nil %>
+						<td><%= winner.custom_id %></td>
+						<% end %>
+						<% if @participants.first.phone_number != nil %>
+						  <th><%= winner.phone_number %></th>
+						<% end %>
+						<% if @participants.first.phone_number != nil %>
+						  <th><%= winner.email %></th>
+						<% end %>
+					</tr>
+      <% end %>
+		    </table>
+	    </dd>
   </dl>
-<% end %>
+    <% end %>
 
 <% else %>
   <% if @participants.size < @prizes_size %>
